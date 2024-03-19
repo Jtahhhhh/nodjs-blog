@@ -1,0 +1,19 @@
+HTTP protocol
+
+HTTP (Hypertext Transfer Protocol)
+Cốt lõi của HTTP bao gồm các đặc điểm chính mà giao thức này dựa trên để thực hiện việc truyền tải dữ liệu giữa các máy khách và máy chủ trên Internet. 
+Các yếu tố cốt lõi của HTTP gồm:
+
+1. **Yêu cầu-Phản hồi (Request-Response)**: Mô hình yêu cầu-phản hồi là cốt lõi của HTTP, trong đó một máy khách gửi một yêu cầu đến máy chủ và máy chủ phản hồi lại với dữ liệu được yêu cầu hoặc một mã lỗi. Mô hình này cho phép truyền tải dữ liệu và tương tác giữa các thành phần của hệ thống web.
+
+2. **Không trạng thái (Statelessness)**: HTTP là không trạng thái, có nghĩa là mỗi yêu cầu từ máy khách đến máy chủ là độc lập và không phụ thuộc vào bất kỳ trạng thái trước đó. Điều này đơn giản hóa việc quản lý kết nối và tăng cường khả năng mở rộng của hệ thống.
+
+3. **Phương thức (Methods)**: HTTP định nghĩa một số phương thức yêu cầu như GET, POST, PUT, DELETE, HEAD, OPTIONS, PATCH, mỗi phương thức đều có mục đích và ứng dụng riêng.
+
+4. **Mã trạng thái (Status Codes)**: HTTP sử dụng mã trạng thái để thông báo kết quả của mỗi yêu cầu, bao gồm các mã như 200 (Thành công), 404 (Không tìm thấy), và 500 (Lỗi máy chủ). Các mã này cung cấp thông tin về kết quả của yêu cầu và hỗ trợ xử lý lỗi.
+
+5. **URI (Uniform Resource Identifier)**: HTTP sử dụng URI để xác định tài nguyên mà một yêu cầu được thực hiện đối với. Điều này cho phép xác định chính xác các tài nguyên được truy cập trên mạng.
+
+6. **Tiêu đề (Headers)**: HTTP cho phép các tiêu đề được gửi cùng với các yêu cầu và phản hồi, cung cấp thông tin bổ sung về dữ liệu được truyền tải như kiểu nội dung, kích thước, và thông tin xác thực.
+
+Những yếu tố trên cùng tạo nên cốt lõi của HTTP và đóng vai trò quan trọng trong việc hoạt động của giao thức trên Internet. headers containing additional information about the request or response, such as content type, content length, cookies, caching directives, and authentication credentials.
