@@ -1,0 +1,19 @@
+SSR (Server-Side Rendering) và CSR (Client-Side Rendering) là hai phương pháp chính để xử lý việc hiển thị giao diện người dùng trên các ứng dụng web.
+
+1. **Server-Side Rendering (SSR)**:
+   - Trong SSR, quá trình xử lý HTML và CSS để tạo giao diện người dùng xảy ra trên máy chủ.
+   - Khi một yêu cầu được gửi từ trình duyệt, máy chủ tạo ra trang web hoàn chỉnh và gửi nó về cho trình duyệt.
+   - Trình duyệt nhận được một trang hoàn chỉnh và người dùng có thể thấy nội dung ngay lập tức.
+   - SSR thường được sử dụng cho các trang web cần hiển thị nhanh chóng trên các thiết bị tìm kiếm và các trình duyệt không hỗ trợ JavaScript tốt.
+
+2. **Client-Side Rendering (CSR)**:
+   - Trong CSR, các tập tin HTML và CSS cơ bản được gửi đến trình duyệt, cùng với các tập tin JavaScript.
+   - Trình duyệt tải các tập tin này và sử dụng JavaScript để tạo và hiển thị giao diện người dùng.
+   - Việc xử lý xảy ra trên máy khách (trình duyệt), giúp giảm bớt tải cho máy chủ.
+   - CSR thường được sử dụng cho các ứng dụng web động, đặc biệt là các ứng dụng đa trang (SPA - Single Page Applications).
+
+So sánh:
+- SSR cung cấp thời gian tải trang nhanh hơn ban đầu, nhưng thời gian tải các trang con có thể mất thêm thời gian.
+- CSR có thể tăng trải nghiệm người dùng bằng cách tải nhanh các trang con, nhưng thời gian tải trang ban đầu có thể lâu hơn.
+- SSR thường tốn ít tài nguyên máy khách hơn và dễ dàng tối ưu hóa cho SEO.
+- CSR thường cần ít tài nguyên máy chủ hơn và cho phép các ứng dụng web phức tạp hơn với nhiều tương tác người dùng mượt mà hơn.
