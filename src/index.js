@@ -2,6 +2,7 @@ const { engine } = require('express-handlebars');
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
+const route = require('./routes/index.route');
 // const scss = require('node-sass')
 
 // console.log(scss)
@@ -11,18 +12,18 @@ const port = 3000;
 
 //thao tác với file static
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.urlencoded())
+app.use(express.json())
 console.log(path.join(__dirname, 'public'))
 //commit
-app.engine('hbs', engine({
-    extname: '.hbs'
-   }));
+app.engine('hbs', engine({extname: '.hbs'}));
 //use layout
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources/views'));
 
-app.use(morgan('combined'));
+//routes init
+route(app)
 
-app.get('/', (req, res) => res.render('home'));
-app.get('/tin-tuc', (req, res) => res.render('news'));
+app.use(morgan('combined'));
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
