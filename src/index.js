@@ -3,9 +3,12 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const route = require('./routes/index.route');
+const db = require('./config/db')
 // const scss = require('node-sass')
 
 // console.log(scss)
+
+db.connect()
 
 const app = express();
 const port = 3000;
