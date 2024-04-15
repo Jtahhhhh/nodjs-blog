@@ -11,7 +11,7 @@ const db = require('./config/db')
 db.connect()
 
 const app = express();
-const port = 3000;
+const port = 9000;
 
 //thao tác với file static
 app.use(express.static(path.join(__dirname, 'public')));
