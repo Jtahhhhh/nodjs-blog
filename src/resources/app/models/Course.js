@@ -10,4 +10,4 @@ const course = new Schema({
     updateAt: {type:Date, default:Date.now}
 })
 
-module.exports = mg.model('course',course)
+module.exports = mg.model('courses',course)

@@ -15,7 +15,7 @@ const port = 9000;
 
 //thao tác với file static
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded());
+// app.use(express.urlencoded());
 app.use(express.json());
 console.log(path.join(__dirname, 'public'));
 //commit
