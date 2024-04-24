@@ -10,6 +10,19 @@ class CourseContoller {
             .catch(next)
         
     }
+    //[get]/courses/create
+    create(req,res){
+        res.render('courses/create')
+    }
+    //[post]/courses/store
+    store(req,res,next){
+        // res.render('courses/store')
+        // res.json(req.)
+        const course = new Course(req.body)
+        course.save();
+       
+        res.send("courses save")
+    }
 }
 
-module.exports = new CourseContoller();
+module.exports = new CourseContoller()

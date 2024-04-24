@@ -1,5 +1,9 @@
 .test {
   font-size: 1rem; }
 
-h1, h2 {
+h1,
+h2 {
   color: red; }
+
+div.col-sm-6.col-lg-4 {
+  padding-bottom: 20px; }

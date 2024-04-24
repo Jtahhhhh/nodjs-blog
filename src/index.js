@@ -12,11 +12,13 @@ db.connect()
 
 const app = express();
 const port = 9000;
+//middle ware
 
 //thao tác với file static
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
+
 console.log(path.join(__dirname, 'public'));
 //commit
 app.engine('hbs', engine({ extname: '.hbs' }));
