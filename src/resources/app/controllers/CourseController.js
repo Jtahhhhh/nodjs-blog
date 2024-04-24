@@ -19,9 +19,9 @@ class CourseContoller {
         // res.render('courses/store')
         // res.json(req.)
         const course = new Course(req.body)
-        course.save();
-       
-        res.send("courses save")
+        course.save()
+            .then(()=> res.redirest('courses/'+req.body.slug))
+            .catch(error =>{})
     }
 }
 
