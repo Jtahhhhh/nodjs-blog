@@ -4,6 +4,7 @@ const express = require('express');
 const morgan = require('morgan');
 const route = require('./routes/index.route');
 const db = require('./config/db')
+const methodOverride = require('method-override')
 // const scss = require('node-sass')
 
 // console.log(scss)
@@ -18,10 +19,17 @@ const port = 9000;
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
+//override method
+app.use(methodOverride('_method'))
 
 console.log(path.join(__dirname, 'public'));
 //commit
-app.engine('hbs', engine({ extname: '.hbs' }));
+app.engine('hbs', engine({ 
+    extname: '.hbs',
+    helpers:{
+        sum: (a,b) =>a+b
+    } 
+}));
 //use layout
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources/views'));
