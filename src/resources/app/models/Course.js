@@ -10,7 +10,7 @@ const course = new Schema({
     vid: {type: String, require:true,},
     level: String,
     time:String,
-    slug: {type:String, slug:'name'},
+    slug: {type:String, slug:'name',unique: true},
     describe: String
 },{
     timestamps:true

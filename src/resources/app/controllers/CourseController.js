@@ -29,6 +29,12 @@ class CourseContoller {
             .then(() => res.redirect('/me/store-courses'))
             .catch(next)
     }
+    //[delete]/coursses/:id
+    delete(req,res,next){
+        Course.deleteOne({_id:req.params.id})
+            .then(() => res.redirect('back'))
+            .catch(next)
+    }
     //[post]/courses/store
     store(req,res,next){
         const course = new Course(req.body)
