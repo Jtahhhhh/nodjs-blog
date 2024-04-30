@@ -1,6 +1,6 @@
 <div class="mt-4">
-    <h3>Khóa Học Của Tôi </h3>
-    <a href="/me/trash/courses">Đã Xóa</a>
+    <a href="/me/store/courses"> Trở về</a>
+    <h3>Khóa Học Đã Xóa </h3>
     <table class="table">
         <thead>
             <tr>
@@ -18,14 +18,13 @@
                 <td>{{this.name}}</td>
                 <td>{{this.level}}</td>
                 <td>{{this.time}}</td>
-                <td><a href="/courses/{{this._id}}/edit" class="btn btn-secondary" tabindex="-1" role="button">Sửa</a></td>
-                <td><a href="" data-bs-toggle="modal" data-bs-target="#deleteCourseModal" data-id="{{this._id}}" class="btn btn-secondary" tabindex="-1" role="button" >Xóa</a></td>
+                <td><a href="" data-bs-toggle="modal" data-bs-target="#restoreCourseModal" class="btn btn-secondary" data-id="{{this._id}}"  tabindex="-1" role="button">Khôi Phục</a></td>
+                <td><a href="" data-bs-toggle="modal" data-bs-target="#deleteCourseModal" data-id="{{this._id}}" class="btn btn-secondary" tabindex="-1" role="button" >Xóa Vĩnh Viễn</a></td>
             </tr>
             {{else}}
               <tr>
                 <td colspan="5" class="text-center">
-                  Bạn chưa đăng khóa học nào.
-                  <a href="/courses/create">Đăng   Khóa Học</a>
+                    Thùng rác trống.
                 </td>
               </tr>
             {{/each}}
@@ -51,21 +50,49 @@
     </div>
   </div>
 </div>
+{{!-- Confirm Restore Course --}}
+<div class="modal fade" id="restoreCourseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Thông Báo</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bạn muốn Khôi Phục khóa học
+      </div>
+      <div class="modal-footer">
+        <button id="btn-restore" type="button" class="btn btn-primary" >Khôi Phục</button>
+        <button type="button" class="btn" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
 {{!-- Delete hidenform --}}
 <form method="POST" id="hiden-delete-form" ></form>
+<form method="POST" id="hiden-restore-form" ></form>
 {{!-- event:click delete button --}}
 <script>
 
         const deleteCourseModal = document.getElementById('deleteCourseModal')
+        const restoreCourseModal = document.getElementById('restoreCourseModal')
         var deleteForm= document.getElementById('hiden-delete-form')
+        var restoreForm= document.getElementById('hiden-restore-form')
         var courseId
-        console.log(deleteForm)
-        //when dialog confrim click
+        //when dialog delete confrim click
         if (deleteCourseModal) {
         deleteCourseModal.addEventListener('show.bs.modal', event => {
             
             const button = event.relatedTarget
+            const recipient = button.getAttribute('data-id')
+            courseId=recipient
+        })
+        }
+        //when dialog restore confrim click
+        if (restoreCourseModal) {
+        restoreCourseModal.addEventListener('show.bs.modal', event => {
             
+            const button = event.relatedTarget
             const recipient = button.getAttribute('data-id')
             courseId=recipient
         })
@@ -73,7 +100,14 @@
         //when delete course btn clicked
         var btnDelete = document.getElementById('btn-delete')
         btnDelete.onclick = function(){
-            deleteForm.action='/courses/'+courseId+'?_method=delete'   
+            deleteForm.action='/courses/'+courseId+'/force?_method=delete'   
             deleteForm.submit()
+
+        }
+        //when restore course btn clicked
+        var btnRestore = document.getElementById('btn-restore')
+        btnRestore.onclick = function(){
+            restoreForm.action='/courses/'+courseId+'/restore?_method=PATCH'   
+            restoreForm.submit()
         }
 </script>

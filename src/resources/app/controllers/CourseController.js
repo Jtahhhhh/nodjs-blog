@@ -26,11 +26,23 @@ class CourseContoller {
     //[put]/courses/:id
     update(req,res,next){
         Course.updateOne({_id:req.params.id},req.body)
-            .then(() => res.redirect('/me/store-courses'))
+            .then(() => res.redirect('/me/store/courses'))
+            .catch(next)
+    }
+    //[put]/courses/:id/restore
+    restore(req,res,next){
+        Course.restore({_id:req.params.id})
+            .then(() => res.redirect('back'))
             .catch(next)
     }
     //[delete]/coursses/:id
     delete(req,res,next){
+        Course.delete({_id:req.params.id})
+            .then(() => res.redirect('back'))
+            .catch(next)
+    }
+     //[delete]/coursses/:id
+     destroy(req,res,next){
         Course.deleteOne({_id:req.params.id})
             .then(() => res.redirect('back'))
             .catch(next)
@@ -39,8 +51,8 @@ class CourseContoller {
     store(req,res,next){
         const course = new Course(req.body)
         course.save()
-            .then(()=> res.redirect('courses/'+req.body.slug))
-            .catch(error =>{})
+            .then(()=> res.redirect('/courses/'+req.body.slug))
+            .catch(next)
     }
 }
 
