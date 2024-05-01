@@ -1,6 +1,8 @@
 <div class="mt-4">
     <h3>Khóa Học Của Tôi </h3>
-    <a href="/me/trash/courses">Đã Xóa</a>
+    {{#if deletedCount }}
+    <a href="/me/trash/courses">Đã Xóa {{deletedCount}}</a>
+    {{/if}}
     <table class="table">
         <thead>
             <tr>
@@ -19,7 +21,7 @@
                 <td>{{this.level}}</td>
                 <td>{{this.time}}</td>
                 <td><a href="/courses/{{this._id}}/edit" class="btn btn-secondary" tabindex="-1" role="button">Sửa</a></td>
-                <td><a href="" data-bs-toggle="modal" data-bs-target="#deleteCourseModal" data-id="{{this._id}}" class="btn btn-secondary" tabindex="-1" role="button" >Xóa</a></td>
+                <td><a href="" data-bs-toggle="modal" data-bs-target="#deleteCourseModal" data-id="{{this ._id}}" class="btn btn-secondary" tabindex="-1" role="button" >Xóa</a></td>
             </tr>
             {{else}}
               <tr>

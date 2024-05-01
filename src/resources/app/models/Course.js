@@ -21,8 +21,10 @@ const course = new Schema({
 
 //add plugin
 mg.plugin(slug)
-mg.plugin(mongoose_delete,{
-    deletedAt: true
-    ,overrideMethods: 'all'
+course.plugin(mongoose_delete,{
+    validateBeforeDelete: false,
+    deletedAt : true,
+    withDeleted: true,
+    overrideMethods: true
 })
 module.exports = mg.model('courses',course)

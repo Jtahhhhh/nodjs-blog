@@ -3,17 +3,21 @@ const Course = require("../models/Course")
 class MeContoller { 
     //[post]/me/store-courses
     storeCourses(req,res,next){
-        Course.find()
-        .then(course=>{
-                res.render('me/store-courses',{ course: mutipleMongooseToObject(course)});
+        Promise.all([ Course.find({}),Course.countDocumentsDeleted()])
+            .then(([course,count])=>{
+                console.log(count)
+                res.render('me/store-courses',{deletedCount:count, course: mutipleMongooseToObject(course)})
             })
-        .catch(next)
+         
+            .catch(next)
     }
     //[post]/me/trash-courses
     trashCourses(req,res,next){
         Course.findDeleted({})
-        .then(course=>{
+        .then(course=>{{
+                console.log(course)
                 res.render('me/trash-courses',{ course: mutipleMongooseToObject(course)});
+                }
             })
         .catch(next)
     }
