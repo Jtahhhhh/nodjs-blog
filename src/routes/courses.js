@@ -4,6 +4,7 @@ const courseController = require('../resources/app/controllers/CourseController'
 
 route.get('/create',courseController.create)
 route.post('/store',courseController.store)
+route.post('/handleFormAction',courseController.handleFormAction)
 route.put('/:id',courseController.update)
 route.patch('/:id/restore',courseController.restore)
 route.delete('/:id',courseController.delete)

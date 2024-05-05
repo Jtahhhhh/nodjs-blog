@@ -1,22 +1,43 @@
-<div class="mt-4">
+<form class="mt-4" method="POST" id="containerForm" action="/courses/handleFormAction">
     <h3>Khóa Học Của Tôi </h3>
     {{#if deletedCount }}
     <a href="/me/trash/courses">Đã Xóa {{deletedCount}}</a>
     {{/if}}
+    <div class="mt-4 d-flex align-items-center">
+      <div class="form-check">
+       <input class="form-check-input" type="checkbox" value="" id="check-All">
+      <label class="form-check-label" for="check-All">
+        Chọn Tất Cả
+      </label>
+     </div>
+        <select class="form-select form-select-sm select-all-checkbox" name="action" style="width: 120px; margin: 16px" aria-label="Small select example" required>
+          <option value="" selected>--Hành Động--</option>
+          <option value="delete">Xóa</option>
+        </select>
+
+        <button id="" class="btn btn-primary btn-sm btn-submit-all disabled">Thực hiện</button>
+    </div>
     <table class="table">
         <thead>
             <tr>
+                <th scope="col">Chọn</th>
                 <th scope="col">#</th>
                 <th scope="col">Tên Khóa Học</th>
                 <th scope="col">Trình Độ</th>
                 <th scope="col">Thời gian tạo</th>
-                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
               {{#each course}}
-            <tr>
+                <tr>
+                 <td> 
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="coursesID[]" value="{{this._id}}" id="flexCheck">
+                  </div>
+                </td>
                 <th scope="row">{{sum @index 1}}</th>
+               
                 <td>{{this.name}}</td>
                 <td>{{this.level}}</td>
                 <td>{{this.time}}</td>
@@ -33,7 +54,7 @@
             {{/each}}
         </tbody>
     </table>
-</div>
+</form>
 
 {{!-- Confirm delete Course --}}
 <div class="modal fade" id="deleteCourseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -57,11 +78,14 @@
 <form method="POST" id="hiden-delete-form" ></form>
 {{!-- event:click delete button --}}
 <script>
-
         const deleteCourseModal = document.getElementById('deleteCourseModal')
+        var containerForm = document.getElementById('containerForm')
         var deleteForm= document.getElementById('hiden-delete-form')
+        var btnDelete = document.getElementById('btn-delete')
+        var selectAll = $('#check-all')
+        var btnCheckAllSubmit =$(".btn-submit-all")
+        var courseItemCheckBox = document.getElementsByName('coursesID[]')
         var courseId
-        console.log(deleteForm)
         //when dialog confrim click
         if (deleteCourseModal) {
         deleteCourseModal.addEventListener('show.bs.modal', event => {
@@ -73,9 +97,40 @@
         })
         }
         //when delete course btn clicked
-        var btnDelete = document.getElementById('btn-delete')
         btnDelete.onclick = function(){
             deleteForm.action='/courses/'+courseId+'?_method=delete'   
             deleteForm.submit()
         }
+        //check box all
+         selectAll.change( function(){
+            var isChecked = $(this).prop('checked')
+            $(courseItemCheckBox).prop('checked',isChecked)
+            renderCheckAllSubmitBtn()
+         })
+         //check box courses
+         $(courseItemCheckBox).change(function() {
+          var isCheckedAll = courseItemCheckBox.length === $('input[name="coursesID[]"]:checked').length;
+          selectAll.prop('checked',isCheckedAll)
+          renderCheckAllSubmitBtn()
+        });
+        //check all submit button submit
+        btnCheckAllSubmit.click(function(e){
+         
+         
+          })
+        //re-render check all submit button
+        function renderCheckAllSubmitBtn(){
+          var checkCount =$('input[name="coursesID[]"]:checked').length
+          if(checkCount>0){
+            btnCheckAllSubmit.removeClass('disabled')
+          }
+          else{
+            btnCheckAllSubmit.addClass('disabled')
+          }
+        }
+        
+
+        
+
+
 </script>
