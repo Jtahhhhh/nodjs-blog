@@ -66,6 +66,22 @@ class CourseContoller {
             res.json({message:'Action is invalid'})
         }
     }
+    handleForm(req,res,next){
+        switch(req.body.action){
+            case 'restore':
+                Course.restore({_id: {$in:req.body.coursesID} })
+                .then(() => res.redirect('back'))
+                .catch(next)
+                break;
+            case 'delete':
+                Course.deleteOne({_id: {$in:req.body.coursesID} })
+                .then(() => res.redirect('back'))
+                .catch(next)
+                break;
+            default:
+            res.json({message:'Action is invalid'})
+        }
+    }
 }
 
 module.exports = new CourseContoller()

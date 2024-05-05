@@ -1,19 +1,40 @@
-<div class="mt-4">
+<form class="mt-4" method="POST" id="containerForm" action="/courses/handleForm">
     <a href="/me/store/courses"> Trở về</a>
     <h3>Khóa Học Đã Xóa </h3>
+     <div class="mt-4 d-flex align-items-center">
+      <div class="form-check">
+       <input class="form-check-input" type="checkbox" value="" id="check-All">
+      <label class="form-check-label" for="check-All">
+        Chọn Tất Cả
+      </label>
+     </div>
+        <select class="form-select form-select-sm select-all-checkbox" name="action" style="width: 120px; margin: 16px" aria-label="Small select example" required>
+          <option value="" selected>--Hành Động--</option>
+          <option value="restore">Khôi phục</option>
+          <option value="delete">Xóa vĩnh viễn</option>
+        </select>
+        <button id="" class="btn btn-primary btn-sm btn-submit-all disabled">Thực hiện</button>
+    </div>
     <table class="table">
         <thead>
             <tr>
+                <th scope="col">Chọn</th>
                 <th scope="col">#</th>
                 <th scope="col">Tên Khóa Học</th>
                 <th scope="col">Trình Độ</th>
                 <th scope="col">Thời gian tạo</th>
-                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
               {{#each course}}
             <tr>
+               
+                <td> 
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="coursesID[]" value="{{this._id}}" id="flexCheck">
+                  </div>
+                </td>
                 <th scope="row">{{sum @index 1}}</th>
                 <td>{{this.name}}</td>
                 <td>{{this.level}}</td>
@@ -30,7 +51,7 @@
             {{/each}}
         </tbody>
     </table>
-</div>
+</form>
 
 {{!-- Confirm delete Course --}}
 <div class="modal fade" id="deleteCourseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -73,11 +94,17 @@
 <form method="POST" id="hiden-restore-form" ></form>
 {{!-- event:click delete button --}}
 <script>
-
+        var containerForm = document.getElementById('containerForm')
         const deleteCourseModal = document.getElementById('deleteCourseModal')
         const restoreCourseModal = document.getElementById('restoreCourseModal')
         var deleteForm= document.getElementById('hiden-delete-form')
         var restoreForm= document.getElementById('hiden-restore-form')
+        var selectAll = $('#check-All')
+        var btnCheckAllSubmit =$(".btn-submit-all")
+        var courseItemCheckBox = document.getElementsByName('coursesID[]')
+        console.log( selectAll)
+        console.log( btnCheckAllSubmit)
+        console.log(courseItemCheckBox)
         var courseId
         //when dialog delete confrim click
         if (deleteCourseModal) {
@@ -109,5 +136,30 @@
         btnRestore.onclick = function(){
             restoreForm.action='/courses/'+courseId+'/restore?_method=PATCH'   
             restoreForm.submit()
+        }
+         //check box all
+         selectAll.change( function(){
+            var isChecked = $(this).prop('checked')
+            $(courseItemCheckBox).prop('checked',isChecked)
+            renderCheckAllSubmitBtn()
+         })
+         //check box courses
+         $(courseItemCheckBox).change(function() {
+          var isCheckedAll = courseItemCheckBox.length === $('input[name="coursesID[]"]:checked').length;
+          selectAll.prop('checked',isCheckedAll)
+          renderCheckAllSubmitBtn()
+        });
+        //check all submit button submit
+          btnCheckAllSubmit.click(function(e){
+          })
+         //re-render check all submit button
+          function renderCheckAllSubmitBtn(){
+          var checkCount =$('input[name="coursesID[]"]:checked').length
+          if(checkCount>0){
+            btnCheckAllSubmit.removeClass('disabled')
+          }
+          else{
+            btnCheckAllSubmit.addClass('disabled')
+          }
         }
 </script>
