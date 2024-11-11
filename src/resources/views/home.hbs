@@ -1,20 +1,58 @@
 <div class="mt-4">
-    <div class="row">
-            {{#each course}}
-            <div class="col-sm-6 col-lg-4">
-                <div class="card" style="width: 18rem;">
-                <a href="/courses/{{this.slug}}">
-                    <img class="card-img-top" src="{{this.img}}">
-                </a>
-                <div class="card-body">
-                    <a href="/courses/{{this.slug}}"></a>
-                        <h5 class="card-title">{{this.name}}</h5>
-                    </a>
-                    <p class="card-text">{{this.decribe}}</p>
-                    <a href="/courses/{{this.slug}}" class="btn btn-primary">Xem Khóa Học</a>
-                </div>
-            </div>
-            </div>
-            {{/each}}
+    <div class="banner">
+        <img class="img-fluid banner-img" src="https://product.hstatic.net/200000467213/product/top-view-ripe-fresh-tomatoes-with-water-drops-black-background_6d57ddb18cf144dba2ec0f9b39b8a8b6_1024x1024.jpg" alt="Banner Image">
+        <div class="content">
+            <h2>Hệ Thống Hỗ Trợ Trang Trại Cà Chua
+            </h2>
+            <p>Tiện Lợi-Nhanh Chóng-Hữu Ích</p>
+            <a href="/thong-tin" class="btn btn-primary">Xem Ngay</a>
+        </div>
     </div>
 </div>
+
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .banner {
+        position: relative;
+        text-align: center;
+        color: rgb(104, 126, 117);
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .banner-img {
+        width: 100%;
+        height: auto;
+        opacity: 0.3;
+    }
+
+    .banner .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: rgb(0, 0, 0);
+        text-align: center;
+    }
+
+    .banner .btn {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+
+    .banner .btn:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    .mt-4 {
+        margin-top: 0 !important;
+    }
+</style>

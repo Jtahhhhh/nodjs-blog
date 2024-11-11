@@ -1,5 +1,8 @@
-module.exports ={
-    mutipleMongooseToObject: (mongooseArray) => {
+const mongoose = require('mongoose');
+mongoose.set('strictQuery', true);
+
+module.exports = {
+    multipleMongooseToObject: (mongooseArray) => {
         if (Array.isArray(mongooseArray)) {
             return mongooseArray.map(mongoose => mongoose.toObject());
         }

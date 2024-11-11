@@ -1,9 +1,10 @@
 const express = require('express');
-const route = express.Router();
-const news = require('../resources/app/controllers/SiteController');
+const siteController = require('../resources/app/controllers/SiteController');
+const router = express.Router();
 
-route.get('/tim-kiem', news.search);
-route.post('/tim-kiem', news.search);
-route.get('/', news.home);
+router.get('/thong-tin', siteController.moreInfo);
+router.get('/tim-kiem', siteController.search);
+router.post('/tim-kiem', siteController.search);
+router.get('/', siteController.home);
 
-module.exports = route;
+module.exports = router;

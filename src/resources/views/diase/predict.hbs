@@ -1,0 +1,149 @@
+<div class="mt-5">
+    <header class="text-center mb-5">
+        <h1>Phát hiện bệnh trên lá cà chua</h1>
+        <p class="lead">Sử dụng công nghệ AI để đếm số lượng và phân loại cà chua.</p>
+    </header>
+
+    <section>
+        <h2 class="text-center">Tải Lên Ảnh Lá  Cà Chua</h2>
+        <form id="upload-form" method="post" action="/diase/predicting" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="fileInput" class="form-label">Chọn Hình Ảnh</label>
+                <input type="file" id="fileInput" class="form-control" name="file" accept="image/*" required>
+            </div>
+            <button type="submit" onclick="clearResult()" class="btn btn-primary btn-block">Dự Đoán</button>
+        </form>
+    </section>
+
+    <section id="result" class="mt-5 text-center">
+        <!-- Kết quả sẽ được hiển thị ở đây -->
+        <div id="loading" style="display: none;">
+            <p>Đang dự đoán, vui lòng đợi...</p>
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </section>
+
+    {{!-- <section class="mt-5">
+        <h2 class="text-center">Các Bệnh Thường Gặp Trên Lá Cà Chua</h2>
+        <ul class="list-group">
+            <li class="list-group-item">Bệnh Đốm Vòng: Biểu hiện bằng các đốm tròn màu nâu trên lá.</li>
+            <li class="list-group-item">Bệnh Sương Mai: Lá có các đốm vàng và khô héo dần.</li>
+            <li class="list-group-item">Bệnh Héo Rũ: Cây bị héo và lá chuyển sang màu vàng nhạt.</li>
+        </ul>
+    </section> --}}
+</div>
+
+<script>
+    function clearResult() {
+        document.getElementById('result').innerHTML = '';  // Xóa kết quả cũ
+        document.getElementById('loading').style.display = 'none';  // Đảm bảo thanh loading ẩn đi
+    }
+
+    $(document).ready(function() {
+        $('#upload-form').on('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+
+            // Hiển thị thanh loading và xóa kết quả cũ
+            $('#loading').show();
+            $('#result').html('');
+
+            $.ajax({
+                type: 'POST',
+                url: '/diase/predicting',
+                data: formData,
+                contentType: false,
+                processData: false,
+                xhrFields: {
+                    responseType: 'blob'  // Nhận dữ liệu hình ảnh dưới dạng blob
+                },
+                success: function(response) {
+                    // Ẩn thanh loading khi nhận kết quả
+                    $('#loading').hide();
+
+                    // Tạo URL từ blob dữ liệu ảnh trả về
+                    var imageUrl = URL.createObjectURL(response);
+                    
+                    // Hiển thị hình ảnh trong phần kết quả
+                    $('#result').html('<h4>Kết Quả Dự Đoán:</h4><img src="' + imageUrl + '" class="img-fluid"/>');
+                },
+                error: function() {
+                    // Ẩn thanh loading nếu có lỗi
+                    $('#loading').hide();
+
+                    $('#result').html('<h4>Có lỗi xảy ra!</h4>');
+                }
+            });
+        });
+    });
+</script>
+
+<style>
+#result img {
+    max-width: 100%;  /* Đảm bảo hình ảnh không vượt quá chiều rộng của khung chứa */
+    height: auto;
+    margin-top: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+header {
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+h2 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+#result {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    display: block;
+    margin: 10px auto;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 20px 0;
+    background-color: #007bff;
+    color: white;
+    border-radius: 0 0 8px 8px;
+}
+
+footer p {
+    margin: 0;
+}
+</style>

@@ -18,3 +18,44 @@ div.col-sm-6.col-lg-4{
 .select-all-checkbox{
     width: 120px;
 }
+.banner {
+    position: relative;
+    text-align: center;
+    color: white;
+
+    img {
+        width: 100%;
+        height: auto;
+        opacity: 0.5;
+    }
+
+    .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        text-align: center;
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 1em;
+        }
+
+        .btn {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+
+            &:hover {
+                background-color: #0056b3;
+                border-color: #004085;
+            }
+        }
+    }
+}
